@@ -1,0 +1,69 @@
+{
+  "k_evaluated": [
+    {
+      "k": 2,
+      "inertia": 18240.92578125,
+      "silhouette": 0.1709
+    },
+    {
+      "k": 3,
+      "inertia": 16804.32421875,
+      "silhouette": 0.16
+    },
+    {
+      "k": 4,
+      "inertia": 15289.91796875,
+      "silhouette": 0.1776
+    },
+    {
+      "k": 5,
+      "inertia": 13864.798828125,
+      "silhouette": 0.1931
+    },
+    {
+      "k": 6,
+      "inertia": 13081.3359375,
+      "silhouette": 0.1865
+    }
+  ],
+  "selected_k": 5,
+  "highest_silhouette_score": 0.1931,
+  "seed_ari_stability": {
+    "tested_seeds": [
+      42,
+      101,
+      2024,
+      7,
+      99
+    ],
+    "pairwise_ari_scores": [
+      0.9863,
+      0.9765,
+      1.0,
+      0.9834,
+      0.9902,
+      0.9863,
+      0.9698,
+      0.9765,
+      0.9795,
+      0.9834
+    ],
+    "mean_ari": 0.9832,
+    "stability_rating": "High"
+  },
+  "outlier_analysis": {
+    "total_samples": 312,
+    "outliers_count": 16,
+    "inliers_count": 296,
+    "inlier_only_best_k": 6,
+    "inlier_only_silhouette": 0.1819,
+    "cluster_distribution": {
+      "0": 6,
+      "1": 86,
+      "2": 70,
+      "3": 4,
+      "4": 146
+    },
+    "is_driven_by_outliers": false
+  }
+}

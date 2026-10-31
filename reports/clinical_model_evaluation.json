@@ -1,0 +1,94 @@
+{
+  "Structured_Only": {
+    "accuracy": 0.6759259259259259,
+    "precision": 0.7192982456140351,
+    "recall_sensitivity": 0.6833333333333333,
+    "specificity": 0.6666666666666666,
+    "f1_score": 0.7008547008547008,
+    "roc_auc": 0.7493055555555556,
+    "pr_auc": 0.7633571068747088,
+    "confusion_matrix": [
+      [
+        32,
+        16
+      ],
+      [
+        19,
+        41
+      ]
+    ],
+    "true_negatives": 32,
+    "false_positives": 16,
+    "false_negatives": 19,
+    "true_positives": 41
+  },
+  "Waveform_Only": {
+    "accuracy": 0.6203703703703703,
+    "precision": 0.6266666666666667,
+    "recall_sensitivity": 0.7833333333333333,
+    "specificity": 0.4166666666666667,
+    "f1_score": 0.6962962962962963,
+    "roc_auc": 0.6989583333333333,
+    "pr_auc": 0.7114069305427632,
+    "confusion_matrix": [
+      [
+        20,
+        28
+      ],
+      [
+        13,
+        47
+      ]
+    ],
+    "true_negatives": 20,
+    "false_positives": 28,
+    "false_negatives": 13,
+    "true_positives": 47
+  },
+  "Fused_Multimodal": {
+    "accuracy": 0.6481481481481481,
+    "precision": 0.6341463414634146,
+    "recall_sensitivity": 0.8666666666666667,
+    "specificity": 0.375,
+    "f1_score": 0.7323943661971831,
+    "roc_auc": 0.6694444444444444,
+    "pr_auc": 0.6789489102861583,
+    "confusion_matrix": [
+      [
+        18,
+        30
+      ],
+      [
+        8,
+        52
+      ]
+    ],
+    "true_negatives": 18,
+    "false_positives": 30,
+    "false_negatives": 8,
+    "true_positives": 52
+  },
+  "Hybrid_KMeans_Fused": {
+    "accuracy": 0.6759259259259259,
+    "precision": 0.6712328767123288,
+    "recall_sensitivity": 0.8166666666666667,
+    "specificity": 0.5,
+    "f1_score": 0.7368421052631579,
+    "roc_auc": 0.6868055555555556,
+    "pr_auc": 0.6995929877131536,
+    "confusion_matrix": [
+      [
+        24,
+        24
+      ],
+      [
+        11,
+        49
+      ]
+    ],
+    "true_negatives": 24,
+    "false_positives": 24,
+    "false_negatives": 11,
+    "true_positives": 49
+  }
+}

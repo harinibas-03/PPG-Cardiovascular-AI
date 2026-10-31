@@ -1,0 +1,99 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+
+# C extensions
+*.obj
+*.o
+*.dll
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+.venv/
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Environment variables & secrets
+.env
+.env.*
+*.env
+*.key
+*.pem
+*.token
+*.cert
+*.crt
+id_rsa
+id_ed25519
+
+# Streamlit secrets & credentials
+.streamlit/secrets.toml
+.streamlit/credentials.toml
+
+# Backups
+_backup_*/
+
+# Large datasets & Patient-level clinical records
+data/raw/
+data/processed/
+data/synthetic/
+data/clinical/
+data/*.zip
+data/*.parquet
+data/*.json
+data/*.xlsx
+# Keep anonymized sample file for tests and demo
+!data/sample_ppg.csv
+
+# Large trained models and serialized checkpoints
+models/*.joblib
+models/*.pkl
+models/*.pt
+models/*.pth
+models/*.onnx
+models/*.h5
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.nox/
+.tox/
+
+# IDE & Editor configs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+
+# Logs and temporary files
+*.log
+*.tmp
+temp/
+tmp/

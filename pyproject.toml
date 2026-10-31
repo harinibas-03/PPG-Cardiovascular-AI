@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "arohan_ppg_cvd"
+version = "1.0.0"
+description = "Hybrid Supervised + Unsupervised AI Pipeline for Cardiovascular Disease (CVD/CAD) Screening using PPG"
+readme = "README.md"
+requires-python = ">=3.9"
+dependencies = [
+    "numpy>=1.24.0",
+    "pandas>=2.0.0",
+    "scipy>=1.10.0",
+    "scikit-learn>=1.3.0",
+    "matplotlib>=3.7.0",
+    "seaborn>=0.12.0",
+    "joblib>=1.3.0",
+    "streamlit>=1.28.0",
+    "datasets>=2.14.0",
+    "pytest>=7.4.0",
+    "openpyxl>=3.1.0",
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["arohan_ppg_cvd*"]
