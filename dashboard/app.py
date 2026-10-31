@@ -23,7 +23,21 @@ import matplotlib.pyplot as plt
 import streamlit as st
 
 # Add project root to sys.path
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
+PROJECT_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
+sys.path.insert(0, PROJECT_ROOT)
+
+def resolve_project_path(rel_path: str) -> str:
+    """Resolve a relative path against CWD or PROJECT_ROOT."""
+    if not rel_path:
+        return ""
+    if os.path.isabs(rel_path) and os.path.exists(rel_path):
+        return rel_path
+    if os.path.exists(rel_path):
+        return os.path.abspath(rel_path)
+    candidate = os.path.join(PROJECT_ROOT, rel_path)
+    if os.path.exists(candidate):
+        return os.path.abspath(candidate)
+    return os.path.join(PROJECT_ROOT, rel_path)
 
 from arohan_ppg_cvd.preprocessing.filters import clean_ppg_signal
 from arohan_ppg_cvd.preprocessing.normalization import normalize_signal
@@ -192,10 +206,13 @@ if workflow_mode == "🫀 Clinical PPG Research & Real Data":
     )
     st.sidebar.caption("• 25–30 Hz: Smartphone optical camera (e.g. Spandan)\n• 50–100+ Hz: Clinical / wearable pulse oximeter")
 
+    clin_model_default = resolve_project_path("models/clinical_cvd_model.joblib")
+    km_model_default = resolve_project_path("models/unsupervised_kmeans.joblib")
+
     available_model_opts = []
-    if os.path.exists("models/clinical_cvd_model.joblib"):
+    if os.path.exists(clin_model_default):
         available_model_opts.append("models/clinical_cvd_model.joblib (CVD Benchmark: Deep 1D CNN + Structured Fusion)")
-    if os.path.exists("models/unsupervised_kmeans.joblib"):
+    if os.path.exists(km_model_default):
         available_model_opts.append("models/unsupervised_kmeans.joblib (Real Spandan K-Means Exploration)")
     available_model_opts.append("Custom Path...")
 
@@ -205,10 +222,14 @@ if workflow_mode == "🫀 Clinical PPG Research & Real Data":
         index=0,
         help="Select trained clinical model or exploratory unsupervised K-Means clusterer.",
     )
-    if "Custom Path" in selected_opt:
-        model_path_input = st.sidebar.text_input("Trained Model Path:", value="models/clinical_cvd_model.joblib")
+    if "models/clinical_cvd_model.joblib" in selected_opt:
+        model_path_input = clin_model_default
+    elif "models/unsupervised_kmeans.joblib" in selected_opt:
+        model_path_input = km_model_default
+    elif "Custom Path" in selected_opt:
+        model_path_input = st.sidebar.text_input("Trained Model Path:", value=clin_model_default)
     else:
-        model_path_input = selected_opt.split(" ")[0]
+        model_path_input = resolve_project_path(selected_opt.split(" ")[0])
 
     st.sidebar.markdown("---")
     st.sidebar.markdown("### Preprocessing Settings")
@@ -224,7 +245,7 @@ if workflow_mode == "🫀 Clinical PPG Research & Real Data":
     device_bpm_ref = None
 
     if data_source == "Load Real Spandan Sample":
-        sample_path = "data/sample_ppg.csv"
+        sample_path = resolve_project_path("data/sample_ppg.csv")
         if os.path.exists(sample_path):
             try:
                 with open(sample_path, "rb") as f:
@@ -727,9 +748,10 @@ else:
     syn_duration = st.sidebar.slider("Signal Duration (seconds):", 5.0, 15.0, 6.0, 1.0)
     syn_seed = st.sidebar.number_input("Random Seed:", value=42, min_value=0, max_value=999999, step=1)
 
+    syn_model_default = resolve_project_path("models/synthetic_hybrid_model.joblib")
     syn_model_path = st.sidebar.text_input(
         "Trained Synthetic Hybrid Model:",
-        value="models/synthetic_hybrid_model.joblib",
+        value=syn_model_default,
         help="Model bundle combining K-Means representation and Random Forest trained on 1,000 synthetic records.",
     )
 
@@ -956,7 +978,7 @@ else:
 
         with col_p2:
             st.markdown("#### 2. Baseline vs Hybrid Model Benchmark")
-            eval_path = "reports/synthetic_hybrid_evaluation.json"
+            eval_path = resolve_project_path("reports/synthetic_hybrid_evaluation.json")
             if os.path.exists(eval_path):
                 with open(eval_path, "r", encoding="utf-8") as f:
                     eval_data = json.load(f)
@@ -987,7 +1009,7 @@ else:
 
         st.markdown("---")
         st.markdown("#### 3. Confusion Matrix & ROC Curve Comparison")
-        plot_eval_img = "reports/synthetic_evaluation_metrics.png"
+        plot_eval_img = resolve_project_path("reports/synthetic_evaluation_metrics.png")
         if os.path.exists(plot_eval_img):
             st.image(plot_eval_img, caption="Baseline vs Hybrid Model Evaluation on 200 Held-Out Synthetic Test Recordings")
 

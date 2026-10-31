@@ -3,4 +3,13 @@ gatherUsageStats = false
 
 [server]
 headless = true
-port = 8501
+maxUploadSize = 50
+enableCORS = false
+enableXsrfProtection = true
+
+[theme]
+primaryColor = "#0284c7"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f8fafc"
+textColor = "#0f172a"
+font = "sans serif"

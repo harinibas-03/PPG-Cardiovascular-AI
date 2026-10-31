@@ -74,6 +74,11 @@ models/*.pt
 models/*.pth
 models/*.onnx
 models/*.h5
+# Whitelist lightweight, non-sensitive inference artifacts for cloud deployment (< 2 MB total)
+!models/clinical_cvd_model.joblib
+!models/unsupervised_kmeans.joblib
+!models/synthetic_hybrid_model.joblib
+!models/synthetic_baseline_rf.joblib
 
 # Testing & coverage
 .pytest_cache/
