@@ -54,6 +54,8 @@ id_ed25519
 
 # Backups
 _backup_*/
+*_backup_*
+*_pre_ui_upgrade.*
 
 # Large datasets & Patient-level clinical records
 data/raw/
