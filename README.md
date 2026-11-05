@@ -106,6 +106,30 @@ All models were evaluated on the **held-out clinical test cohort of 36 unique su
 
 ---
 
+## 🖥️ Interactive Dashboard & AI Model Integration Architecture
+
+The platform provides a dual-interface Streamlit application (`dashboard/app.py`):
+1. **📄 Patient Overview (Light Theme)**: Clinical onboarding, report ingestion, and drag-and-drop file upload.
+2. **🫀 Precision Cardiovascular Intelligence Dashboard (Dark Theme `#0B0F17`)**: Multi-branch real-time analytics, risk gauge, cardiac readouts, and AI model telemetry.
+
+### Module-to-Model Mapping Matrix
+
+| Dashboard Module | Integrated AI Model | Input Representation | Model Outputs & Visualizations |
+| :--- | :--- | :--- | :--- |
+| **Patient Overview** | Complete Ingestion Pipeline | CSV (amplitude) / JSON (signal) | Validates duration (> 2s), sampling rate, and missing values; auto-runs preprocessing, feature extraction, and clinical inference. |
+| **Main Dashboard** | `clinical_cvd_model.joblib` | Active PPG Recording | Real-time Heart Rate (BPM), RMSSD (ms), Cardiovascular Risk Score gauge (0–100), AHA/ESC staging, and bottom EchoNext DL banner (`NORM` vs `CVD`) with `[⚡ Re-Infer]` button. |
+| **Live Waveforms** | `unsupervised_kmeans.joblib` | 75-D Physiological Features | Raw signal, bandpass filtered (0.5–8.0 Hz) waveform, systolic peaks, VPG/APG derivatives, ensemble beat profile, and **Spandan Morphological Cluster Assignment** ($k=5$ centroid distances & stability rating). |
+| **EchoNext CNN** | `DeepWaveformEncoder` + `clinical_cvd_model.joblib` | Raw PPG Waveform + 75-D Vector | Runs actual 1D CNN waveform encoder: standardized 512-pt signal, multi-scale filter activations ($k=7, 15, 31$ taps), 32-D latent embedding bar chart, and held-out validation benchmark table. |
+| **Risk Engine** | `clinical_cvd_model.joblib` + `synthetic_hybrid_model.joblib` | Fused 107-D Vector / 75-D Features | Actual supervised probabilities ($P(\text{Healthy})$, $P(\text{CVD})$), clinical calibration formulas, explicit separation of sensor vs. lab metrics, and synthetic demonstration model (Pattern A vs Pattern B). |
+| **Fusion Layers** | `MultimodalPatientRecord` Container | Multi-branch modalities | Live unified patient container uniting Branch A (75-D physiology), Branch B (32-D 1D CNN embedding), Branch C (5-D Spandan K-Means distances), and Branch D (10-D clinical lab panel). |
+
+> **Important Diagnostic Boundaries**:
+> - **Supervised Model Scope**: Classifies **Healthy Normotensive vs. CVD / Vascular Pathology (Hypertension Stages 1–2)**. It does **NOT** make a CAD-specific diagnosis.
+> - **CT Provenance**: Fat Attenuation Index (FAI) and Coronary Artery Calcium (CAC) are explicitly labeled as **CT-derived, not sensor estimated**.
+> - **Synthetic Scope**: Pattern A vs Pattern B outputs are mathematical simulation artifacts for hybrid workflow demonstration, not medical diagnoses.
+
+---
+
 ## 📁 Repository Directory Structure
 
 ```text
